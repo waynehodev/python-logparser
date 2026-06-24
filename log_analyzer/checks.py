@@ -9,12 +9,15 @@ def consecutive_error_check(errordatetime): # Checks if multiple errors has been
 
         if i == 0:
             continue
-        elif errordatetime[i] - errordatetime[i-1] <= timedelta(seconds=5):
+        elif (errorcounter == 0) and (errordatetime[i] - errordatetime[i-1] <= timedelta(seconds=5)):
+            errorstarttime = i - 1
+            errorcounter += 1
+        elif (errorcounter != 0) and (errordatetime[i] - errordatetime[i-1] <= timedelta(seconds=5)):
             errorcounter += 1
         else:
             if errorcounter >= 4:
                 consecutive_errors_count.append(errorcounter + 1)
-                consecutive_errors_time.append(errordatetime[i-1])
+                consecutive_errors_time.append(errordatetime[errorstarttime])
             errorcounter = 0
     
     if errorcounter >= 4:

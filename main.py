@@ -2,6 +2,7 @@ import argparse
 import log_analyzer.display as display
 from log_analyzer import log_parser
 from log_analyzer import consecutive_error_check
+from database import sqlupload
 
 
 if __name__ == "__main__":
@@ -28,5 +29,7 @@ if __name__ == "__main__":
     consecutive_errors_data = consecutive_error_check(results["error_datetime"])
     if consecutive_errors_data is not None:
         for error_count, error_time in zip(consecutive_errors_data["consecutive_error_count"], consecutive_errors_data["consecutive_error_time"]):
-            print(f"Urgent! Many errors detected ({error_count} errors) detected within 30 seconds at time {error_time}")
+            print(f"Urgent! Many errors detected ({error_count} errors) detected within 30 seconds starting at time {error_time}")
     
+    print("Uploading to sqlite database")
+    sqlupload(results, consecutive_errors_data, args.file)

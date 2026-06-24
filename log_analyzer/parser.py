@@ -6,6 +6,7 @@ def log_parser(filename):
     errorline = [] # List of stored errors detected
     errorlinenum = [] # List of line number where errors are located
     errorlinedatetime = [] # List of the date and time the error are reported at
+    warninglinedatetime = [] # List of the date and time the error are reported at
     warningline = [] # List of stored warnings
     warninglinenum = [] # List of line numbers where warnings are located
 
@@ -23,6 +24,7 @@ def log_parser(filename):
                     errorline.append(data_line[2])
                     errorlinenum.append(num)
                 elif str(data_line[1]).lower() == "warning": # Stores the warning message, and line number
+                    warninglinedatetime.append(data_line[0])
                     warningline.append(data_line[2])
                     warninglinenum.append(num)
                 else:
@@ -38,7 +40,8 @@ def log_parser(filename):
         "error_linenums": errorlinenum,
         "error_datetime": errorlinedatetime,
         "warning_lines": warningline,
-        "warning_linenums": warninglinenum
+        "warning_linenums": warninglinenum,
+        "warning_datetime": warninglinedatetime
     }
 
 
