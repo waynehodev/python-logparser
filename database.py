@@ -1,8 +1,12 @@
 import sqlite3
+import logging
+logger = logging.getLogger("parser")
+from contextlib import closing
+from config import settings
 
 def sqlupload(results, consecutive_errors, filename):
-    with sqlite3.connect("./db/securitylogs.db") as connection:
-        cursor = connection.cursor()
+    with closing(sqlite3.connect(settings.db_path)) as conn:
+        cursor = conn.cursor()
 
         cursor.executescript("""
             CREATE TABLE IF NOT EXISTS errors(
@@ -39,11 +43,11 @@ def sqlupload(results, consecutive_errors, filename):
                     VALUES(?, ?, ?, ?)               
                 """, (errordatetime, errorlinenum, errorline, filename))
             
-            connection.commit()
-            print(f"Errors uploaded succesfully")
+            conn.commit()
+            logger.info(f"Errors uploaded succesfully")
         except Exception as e:
-            connection.rollback()
-            print(f"Failed upload: {e}")
+            conn.rollback()
+            logger.info(f"Failed upload: {e}")
 
         try:
             for warningline, warninglinenum, warningdatetime in zip(results["warning_lines"], results["warning_linenums"], results["warning_datetime"]):
@@ -52,11 +56,11 @@ def sqlupload(results, consecutive_errors, filename):
                     VALUES(?, ?, ?, ?)               
                 """, (warningdatetime, warninglinenum, warningline, filename))
             
-            connection.commit()
-            print(f"Warnings uploaded succesfully")
+            conn.commit()
+            logger.info(f"Warnings uploaded succesfully")
         except Exception as e:
-            connection.rollback()
-            print(f"Failed upload: {e}")
+            conn.rollback()
+            logger.info(f"Failed upload: {e}")
 
         try:
             for errorcount, errortime, in zip(consecutive_errors["consecutive_error_count"], consecutive_errors["consecutive_error_time"]):
@@ -69,8 +73,8 @@ def sqlupload(results, consecutive_errors, filename):
                     VALUES(?, ?, ?, ?)
                 """, (errortime, "excessive_errors_in_short_time", errortext, filename))
             
-            connection.commit()
-            print(f"Threats uploaded succesfully")
+            conn.commit()
+            logger.info(f"Threats uploaded succesfully")
         except Exception as e:
-            connection.rollback()
-            print(f"Failed upload: {e}")
+            conn.rollback()
+            logger.info(f"Failed upload: {e}")
