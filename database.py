@@ -1,4 +1,6 @@
 import sqlite3
+import logging
+logger = logging.getLogger("parser")
 
 def sqlupload(results, consecutive_errors, filename):
     with sqlite3.connect("./db/securitylogs.db") as connection:
@@ -40,10 +42,10 @@ def sqlupload(results, consecutive_errors, filename):
                 """, (errordatetime, errorlinenum, errorline, filename))
             
             connection.commit()
-            print(f"Errors uploaded succesfully")
+            logger.info(f"Errors uploaded succesfully")
         except Exception as e:
             connection.rollback()
-            print(f"Failed upload: {e}")
+            logger.info(f"Failed upload: {e}")
 
         try:
             for warningline, warninglinenum, warningdatetime in zip(results["warning_lines"], results["warning_linenums"], results["warning_datetime"]):
@@ -53,10 +55,10 @@ def sqlupload(results, consecutive_errors, filename):
                 """, (warningdatetime, warninglinenum, warningline, filename))
             
             connection.commit()
-            print(f"Warnings uploaded succesfully")
+            logger.info(f"Warnings uploaded succesfully")
         except Exception as e:
             connection.rollback()
-            print(f"Failed upload: {e}")
+            logger.info(f"Failed upload: {e}")
 
         try:
             for errorcount, errortime, in zip(consecutive_errors["consecutive_error_count"], consecutive_errors["consecutive_error_time"]):
@@ -70,7 +72,7 @@ def sqlupload(results, consecutive_errors, filename):
                 """, (errortime, "excessive_errors_in_short_time", errortext, filename))
             
             connection.commit()
-            print(f"Threats uploaded succesfully")
+            logger.info(f"Threats uploaded succesfully")
         except Exception as e:
             connection.rollback()
-            print(f"Failed upload: {e}")
+            logger.info(f"Failed upload: {e}")

@@ -1,15 +1,18 @@
+import logging
+logger = logging.getLogger("parser")
+
 def print_summary(linenum, totalerrornum, totalwarningnum): # Prints a summary of total errors and warnings detected
-    print(f"\n------------\nSummary\n------------\n")
-    print(f"Total line parsed: {linenum}")
-    print(f"Total errors: {totalerrornum}")
-    print(f"Total warnings: {totalwarningnum}")
+    logger.info(f"------------Summary------------")
+    logger.info(f"Total line parsed: {linenum}")
+    logger.info(f"Total errors: {totalerrornum}")
+    logger.info(f"Total warnings: {totalwarningnum}")
 
 def print_errors(errorline, errorlinenum): # Prints out the errors detected
-    print("\n------------\nErrors\n------------\n")
+    logger.info("------------Errors------------")
     for line, num in zip(errorline, errorlinenum):
-        print(f"Error message: {line}\nLine number: {num}\n")
+        logger.info(f"Error message: {line}\nLine number: {num}")
 
 def print_warnings(warningline, warninglinenum): # Prints out the warnings detected
-    print("\n------------\nWarnings\n------------\n")
+    logger.info("------------Warnings------------")
     for line, num in zip(warningline, warninglinenum):
-        print(f"Warning message: {line}\nLine number: {num}\n")
+        logger.info(f"Warning message: {line}\nLine number: {num}")

@@ -1,7 +1,8 @@
 from datetime import datetime
+import logging
+logger = logging.getLogger("parser")
 
 def log_parser(filename):
-
     num = 0 # Line number counter as we continue to read the file
     errorline = [] # List of stored errors detected
     errorlinenum = [] # List of line number where errors are located
@@ -31,7 +32,7 @@ def log_parser(filename):
                     continue
 
     except FileNotFoundError:
-        print(f"File {filename} not found. Please check the file destination.")
+        logger.info(f"File {filename} not found. Please check the file destination.")
         return
 
     return {
@@ -67,7 +68,7 @@ def _line_breakdown(line): # Parses the error/warning line and break it down int
 
 if __name__ == "__main__":
     import argparse
-    print("Runing log parser.")
+    logger.info("Runing log parser.")
 
     parser = argparse.ArgumentParser(
         description="Provide the file name to be parsed"
