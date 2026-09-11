@@ -9,7 +9,7 @@ from pathlib import Path
 
 def main(filename):
     logger = logging.getLogger("parser")
-    LOG_FILE = Path("./parser.log")
+    LOG_FILE = Path("./logs/parser.log")
     dest = unique_file_path(LOG_FILE)
     logging.basicConfig(filename=dest, level=logging.INFO)
     logger.info("Running log parser.")
