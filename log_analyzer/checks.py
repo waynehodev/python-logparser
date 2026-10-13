@@ -22,7 +22,7 @@ def consecutive_error_check(errordatetime): # Checks if multiple errors has been
     
     if errorcounter >= 4:
         consecutive_errors_count.append(errorcounter + 1)
-        consecutive_errors_time.append(errordatetime[-1])
+        consecutive_errors_time.append(errordatetime[errorstarttime])
 
     
     return {
