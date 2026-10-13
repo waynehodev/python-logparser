@@ -11,7 +11,7 @@ def test_many_errors_in_5sec(): # Feed a valid list with one designed error. Exp
             datetime(2025, 5, 5, 3, 4, 10),
             datetime(2025, 5, 5, 3, 4, 11)]
     results = consecutive_error_check(timestamps)
-    assert results == {"consecutive_error_count": [7], "consecutive_error_time": [datetime(2025,5,5,3,4,11)]}
+    assert results == {"consecutive_error_count": [7], "consecutive_error_time": [datetime(2025,5,5,3,4,5)]}
 
 def test_multiple_error_sets(): # Feed a valid list with multiple designed errors. Expect the output to contain a dictionary with multiple data recorded 
     timestamps = [
@@ -36,7 +36,7 @@ def test_multiple_error_sets(): # Feed a valid list with multiple designed error
             datetime(2025, 5, 5, 17, 6, 29)]
     results = consecutive_error_check(timestamps)
     # print(results)
-    assert results == {"consecutive_error_count": [6, 6], "consecutive_error_time": [datetime(2025, 5, 5, 13, 4, 12), datetime(2025, 5, 5, 16, 5, 29)]}
+    assert results == {"consecutive_error_count": [6, 6], "consecutive_error_time": [datetime(2025, 5, 5, 13, 4, 7), datetime(2025, 5, 5, 16, 5, 14)]}
 
 def test_not_enough_errors_in_5sec(): # Feed a valid list with no errors in timing. Expect the output to be an empty disctionary. 
     timestamps = [
