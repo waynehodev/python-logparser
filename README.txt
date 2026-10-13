@@ -1,4 +1,4 @@
-LOG ANALYZER -- Last updated (2026-06-24)
+LOG ANALYZER -- Last updated (2026-10-13)
 
 PROBLEM STATEMENT: 
 - Engineers often spend a significant amount of time manually review large log files to identify failures. This project automates log analysis by detecting error and warning patterns, generating summary reports, accelerating the debugging process.
@@ -10,6 +10,10 @@ FEATURES:
     - Consecutive errors happening within a short time frame (More than 5 errors within 30 seconds)
 - Upload collected errors, warnings and threats into an SQLite DB
 - Include unit tests covering core parsing and analysis logic.
+- Created APIs:
+	- Call warning and error messages from SQL database.
+	- Upload log file to be read and parse, before uploading into the SQL database.
+- Unit tests now gates pull requests before merging to ensure functional quality.
 
 INSTALLATION:
 ```bash
