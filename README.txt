@@ -15,8 +15,8 @@ FEATURES:
 	- Upload log file to be read and parse, before uploading into the SQL database.
 - Unit tests now gates pull requests before merging to ensure functional quality.
 
-INSTALLATION:
-```bash
+INSTALLATION (using bash):
+```
 git clone https://github.com/hochuanwei/python-logparser.git
 cd python-logparser
 pip install -r requirements.txt
